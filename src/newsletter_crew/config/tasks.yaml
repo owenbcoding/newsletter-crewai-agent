@@ -1,0 +1,103 @@
+research_task:
+  description: >
+    Conduct comprehensive research on the latest developments in {topic}.
+    Your research must include:
+    1. Find the 3 most significant and recent AI news items from today or this week
+    2. Identify the top AI research paper published today or very recently
+    
+    Focus on finding:
+    - Breaking news about major AI companies, products, or breakthroughs
+    - Significant research papers from arXiv, conferences, or major labs
+    - Developments that would interest AI professionals and enthusiasts
+    
+    For each news item, gather:
+    - The headline/title
+    - Key details and context
+    - Why it matters
+    - Source information
+    
+    For the research paper, gather:
+    - Paper title and authors
+    - Main contribution/findings
+    - Significance to the field
+    - Link or reference
+    
+    Current year: {current_year}
+  expected_output: >
+    A structured research brief containing:
+    - 3 AI news items with headlines, key details, and significance
+    - 1 featured AI research paper with title, authors, key findings, and significance
+    All information should be recent, accurate, and well-sourced.
+  agent: researcher
+
+drafting_task:
+  description: >
+    Using the research provided, draft a professional AI newsletter with the following 
+    exact structure:
+    
+    **Section 1: AI News Roundup**
+    Create a concise bulleted list of 3 news items. Each bullet should be 1-2 sentences 
+    maximum, highlighting the key development and why it matters.
+    
+    **Section 2: Deep Dive**
+    Expand each of the 3 news items into a single, well-crafted paragraph (3 paragraphs total).
+    Each paragraph should:
+    - Provide context and details
+    - Explain the significance
+    - Be engaging and informative
+    - Be approximately 4-6 sentences long
+    
+    **Section 3: Research Spotlight**
+    Write one compelling paragraph highlighting the featured AI research paper.
+    This paragraph should:
+    - Introduce the paper and authors
+    - Explain the key contribution
+    - Discuss why it's significant for the AI community
+    - Be approximately 5-7 sentences long
+    
+    Maintain a professional yet engaging tone throughout. Write for an audience of 
+    AI professionals, researchers, and enthusiasts.
+  expected_output: >
+    A complete newsletter draft formatted in markdown with three clearly defined sections:
+    1. AI News Roundup (3 bullet points)
+    2. Deep Dive (3 paragraphs)
+    3. Research Spotlight (1 paragraph)
+    
+    The content should be polished, engaging, and ready for review.
+    Formatted as markdown without '```'
+  agent: editor
+
+review_task:
+  description: >
+    Perform a comprehensive quality review of the newsletter draft. Your review should ensure:
+    
+    **Content Quality:**
+    - All information appears accurate and well-researched
+    - The tone is consistent, professional, and engaging
+    - Each section fulfills its purpose effectively
+    - Technical details are presented clearly
+    
+    **Structure & Format:**
+    - Section 1 contains exactly 3 concise bullet points
+    - Section 2 contains exactly 3 well-developed paragraphs
+    - Section 3 contains exactly 1 comprehensive paragraph
+    - Markdown formatting is clean and consistent
+    
+    **Language & Style:**
+    - Grammar and punctuation are flawless
+    - Sentences flow naturally
+    - No redundancy or unnecessary jargon
+    - Headlines and transitions work well
+    
+    Make any necessary corrections and improvements to produce a publication-ready newsletter.
+    If the draft is excellent, you may approve it as-is, but add a brief note confirming 
+    it meets all quality standards.
+  expected_output: >
+    The final, polished newsletter ready for publication. It must include:
+    - Section 1: AI News Roundup with 3 bullet points
+    - Section 2: Deep Dive with 3 paragraphs (one per news item)
+    - Section 3: Research Spotlight with 1 paragraph about the featured paper
+    
+    The output should be impeccably formatted in markdown without '```', 
+    grammatically perfect, and publication-ready.
+  agent: reviewer
