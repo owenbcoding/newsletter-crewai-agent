@@ -18,8 +18,10 @@ def run():
     Run the crew.
     """
     inputs = {
-        'topic': 'Artificial Intelligence',
-        'current_year': str(datetime.now().year)
+        'destination': 'Paris, France',
+        'duration': '7',
+        'budget': '2000',
+        'currency': 'USD'
     }
     
     try:
@@ -33,8 +35,10 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        "topic": "Artificial Intelligence",
-        'current_year': str(datetime.now().year)
+        'destination': 'Paris, France',
+        'duration': '7',
+        'budget': '2000',
+        'currency': 'USD'
     }
     try:
         NewsletterCrew().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
@@ -57,8 +61,10 @@ def test():
     Test the crew execution and returns the results.
     """
     inputs = {
-        "topic": "Artificial Intelligence",
-        "current_year": str(datetime.now().year)
+        'destination': 'Paris, France',
+        'duration': '7',
+        'budget': '2000',
+        'currency': 'USD'
     }
     
     try:

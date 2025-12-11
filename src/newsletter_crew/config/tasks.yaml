@@ -1,103 +1,143 @@
 research_task:
   description: >
-    Conduct comprehensive research on the latest developments in {topic}.
-    Your research must include:
-    1. Find the 3 most significant and recent AI news items from today or this week
-    2. Identify the top AI research paper published today or very recently
+    Conduct comprehensive web research to gather specific, current information about 
+    {destination} for a {duration}-day trip with a budget of {budget} {currency}.
     
-    Focus on finding:
-    - Breaking news about major AI companies, products, or breakthroughs
-    - Significant research papers from arXiv, conferences, or major labs
-    - Developments that would interest AI professionals and enthusiasts
+    You MUST use web search tools to find REAL, CURRENT information. Do NOT rely on 
+    general knowledge. Search for:
     
-    For each news item, gather:
-    - The headline/title
-    - Key details and context
-    - Why it matters
-    - Source information
+    1. **Top Attractions** (Find at least 6-8 attractions):
+       - Official websites and booking pages
+       - Current ticket prices (adult, child if applicable)
+       - Opening hours and best times to visit
+       - Duration needed for each attraction
+       - Booking requirements or tips
     
-    For the research paper, gather:
-    - Paper title and authors
-    - Main contribution/findings
-    - Significance to the field
-    - Link or reference
+    2. **Dining Options** (Find 4-6 restaurants/cafes):
+       - Restaurant names and types of cuisine
+       - Price ranges (average meal cost)
+       - Popular dishes
+       - Reservation requirements
     
-    Current year: {current_year}
+    3. **Activities & Experiences**:
+       - Local experiences and hidden gems
+       - Seasonal activities
+       - Walking tours or guided experiences
+       - Costs and booking details
+    
+    4. **Practical Information**:
+       - Best neighborhoods to explore
+       - Transportation options and costs
+       - Local tips and insider advice
+       - Money-saving tips
+    
+    Search multiple sources for each item to get accurate, current pricing and details.
+    Focus on actionable information that can be directly used in an itinerary.
   expected_output: >
-    A structured research brief containing:
-    - 3 AI news items with headlines, key details, and significance
-    - 1 featured AI research paper with title, authors, key findings, and significance
-    All information should be recent, accurate, and well-sourced.
+    A detailed research report with:
+    - 6-8 attractions with specific costs, opening hours, durations, and booking links
+    - 4-6 dining options with price ranges and cuisine types
+    - Activities and experiences with costs
+    - Practical tips and local insights
+    
+    All information must be current, specific (no generic descriptions), and include 
+    actual numbers (prices, hours, durations). Format with clear headings and bullet points.
   agent: researcher
+  tools:
+    - SerperDevTool
 
-drafting_task:
+planning_task:
   description: >
-    Using the research provided, draft a professional AI newsletter with the following 
-    exact structure:
+    Using the research provided, create a detailed {duration}-day itinerary for 
+    {destination} with a budget of {budget} {currency}.
     
-    **Section 1: AI News Roundup**
-    Create a concise bulleted list of 3 news items. Each bullet should be 1-2 sentences 
-    maximum, highlighting the key development and why it matters.
+    Your itinerary MUST follow this EXACT format for each day:
     
-    **Section 2: Deep Dive**
-    Expand each of the 3 news items into a single, well-crafted paragraph (3 paragraphs total).
-    Each paragraph should:
-    - Provide context and details
-    - Explain the significance
-    - Be engaging and informative
-    - Be approximately 4-6 sentences long
+    ## Day X: [Theme/Focus]
     
-    **Section 3: Research Spotlight**
-    Write one compelling paragraph highlighting the featured AI research paper.
-    This paragraph should:
-    - Introduce the paper and authors
-    - Explain the key contribution
-    - Discuss why it's significant for the AI community
-    - Be approximately 5-7 sentences long
+    **Morning (START_TIME - END_TIME):** [Activity Name]
     
-    Maintain a professional yet engaging tone throughout. Write for an audience of 
-    AI professionals, researchers, and enthusiasts.
+    Duration: X hours
+    
+    Cost: [Currency Symbol][Amount] ([details])
+    
+    Tip: [Practical advice]
+    
+    **Afternoon (START_TIME - END_TIME):** [Activity Name]
+    
+    Duration: X hours
+    
+    Cost: [Currency Symbol][Amount] ([details])
+    
+    Tip: [Practical advice]
+    
+    **Evening (START_TIME - END_TIME):** [Activity Name]
+    
+    Duration: X hours
+    
+    Cost: [Currency Symbol][Amount] ([details])
+    
+    Tip: [Practical advice]
+    
+    ---
+    
+    Requirements:
+    - Each day should have 3-4 activities (morning, afternoon, evening, and optionally late evening)
+    - Use specific times (e.g., "9:00 AM - 12:00 PM")
+    - Include realistic durations
+    - Show actual costs from the research (€25, $50, £15, etc.)
+    - Provide one practical tip per activity
+    - Ensure activities are logically grouped by location
+    - Include meals/dining as activities with costs
+    - Keep total daily costs within the budget
+    - Add variety (museums, landmarks, food, experiences, relaxation)
   expected_output: >
-    A complete newsletter draft formatted in markdown with three clearly defined sections:
-    1. AI News Roundup (3 bullet points)
-    2. Deep Dive (3 paragraphs)
-    3. Research Spotlight (1 paragraph)
+    A complete {duration}-day itinerary formatted exactly as specified above. Each day 
+    must include:
+    - A themed title
+    - 3-4 time-blocked activities with specific start/end times
+    - Duration for each activity
+    - Specific costs with currency symbols
+    - Practical tips for each activity
     
-    The content should be polished, engaging, and ready for review.
-    Formatted as markdown without '```'
-  agent: editor
+    The itinerary should be detailed, actionable, and stay within the {budget} {currency} 
+    budget. Format in markdown without '```'.
+  agent: planner
 
 review_task:
   description: >
-    Perform a comprehensive quality review of the newsletter draft. Your review should ensure:
+    Perform a comprehensive quality review of the trip itinerary. Ensure:
     
-    **Content Quality:**
-    - All information appears accurate and well-researched
-    - The tone is consistent, professional, and engaging
-    - Each section fulfills its purpose effectively
-    - Technical details are presented clearly
-    
-    **Structure & Format:**
-    - Section 1 contains exactly 3 concise bullet points
-    - Section 2 contains exactly 3 well-developed paragraphs
-    - Section 3 contains exactly 1 comprehensive paragraph
+    **Format & Structure:**
+    - Each day follows the exact format specified (Day title, Morning/Afternoon/Evening sections)
+    - All time slots have specific start and end times (e.g., "9:00 AM - 12:00 PM")
+    - Every activity includes: Duration, Cost, and Tip
+    - Costs use proper currency symbols (€, $, £, etc.)
     - Markdown formatting is clean and consistent
     
-    **Language & Style:**
-    - Grammar and punctuation are flawless
-    - Sentences flow naturally
-    - No redundancy or unnecessary jargon
-    - Headlines and transitions work well
+    **Content Quality:**
+    - Times are realistic and allow for travel between locations
+    - Durations are appropriate for each activity
+    - Costs are specific numbers from the research (not vague)
+    - Tips are practical and actionable
+    - Activities are varied and well-paced
+    - Total costs stay within the {budget} {currency} budget
     
-    Make any necessary corrections and improvements to produce a publication-ready newsletter.
-    If the draft is excellent, you may approve it as-is, but add a brief note confirming 
-    it meets all quality standards.
+    **Practicality:**
+    - Schedule is feasible (not too rushed or too sparse)
+    - Activities in proximity are grouped together
+    - Meal times are included
+    - Opening hours are respected (if mentioned in research)
+    
+    Make any necessary corrections to match the exact format and ensure all required 
+    elements are present. Fix any missing times, costs, durations, or tips.
   expected_output: >
-    The final, polished newsletter ready for publication. It must include:
-    - Section 1: AI News Roundup with 3 bullet points
-    - Section 2: Deep Dive with 3 paragraphs (one per news item)
-    - Section 3: Research Spotlight with 1 paragraph about the featured paper
+    The final, polished {duration}-day itinerary ready for travelers. It must have:
+    - Each day properly formatted with Day title and time-blocked activities
+    - All activities include specific times, durations, costs, and tips
+    - Professional formatting in markdown without '```'
+    - Practical, actionable information throughout
+    - Budget-conscious recommendations
     
-    The output should be impeccably formatted in markdown without '```', 
-    grammatically perfect, and publication-ready.
+    The output should be clear, detailed, and match the example format exactly.
   agent: reviewer

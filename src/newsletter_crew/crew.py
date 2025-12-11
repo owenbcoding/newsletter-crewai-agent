@@ -1,6 +1,7 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
+from crewai_tools import SerperDevTool
 from typing import List
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -8,7 +9,7 @@ from typing import List
 
 @CrewBase
 class NewsletterCrew():
-    """NewsletterCrew crew"""
+    """Trip Planner Crew - Creates detailed travel itineraries"""
 
     agents: List[BaseAgent]
     tasks: List[Task]
@@ -21,15 +22,17 @@ class NewsletterCrew():
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
     def researcher(self) -> Agent:
+        search_tool = SerperDevTool()
         return Agent(
             config=self.agents_config['researcher'], # type: ignore[index]
-            verbose=True
+            verbose=True,
+            tools=[search_tool]
         )
 
     @agent
-    def editor(self) -> Agent:
+    def planner(self) -> Agent:
         return Agent(
-            config=self.agents_config['editor'], # type: ignore[index]
+            config=self.agents_config['planner'], # type: ignore[index]
             verbose=True
         )
 
@@ -50,21 +53,21 @@ class NewsletterCrew():
         )
 
     @task
-    def drafting_task(self) -> Task:
+    def planning_task(self) -> Task:
         return Task(
-            config=self.tasks_config['drafting_task'], # type: ignore[index]
+            config=self.tasks_config['planning_task'], # type: ignore[index]
         )
 
     @task
     def review_task(self) -> Task:
         return Task(
             config=self.tasks_config['review_task'], # type: ignore[index]
-            output_file='newsletter.md'
+            output_file='itinerary.md'
         )
 
     @crew
     def crew(self) -> Crew:
-        """Creates the NewsletterCrew crew"""
+        """Creates the Trip Planner crew"""
         # To learn how to add knowledge sources to your crew, check out the documentation:
         # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 

@@ -1,6 +1,6 @@
-# AI Newsletter Crew
+# Trip Planner Crew
 
-Welcome to the AI Newsletter Crew project, powered by [crewAI](https://crewai.com). This multi-agent system automatically generates professional AI newsletters by orchestrating three specialized agents: a Researcher, an Editor, and a Reviewer. The agents collaborate to research the latest AI developments, draft engaging content, and polish the final newsletter to publication quality.
+Welcome to the Trip Planner Crew project, powered by [crewAI](https://crewai.com). This multi-agent system automatically generates detailed travel itineraries by orchestrating three specialized agents: a Researcher, a Planner, and a Reviewer. The agents collaborate to research real-time travel information, create detailed hour-by-hour itineraries with specific costs and times, and ensure publication-quality output.
 
 ## Installation
 
@@ -27,16 +27,23 @@ Before running the project, you need to set up your API key:
    touch .env
    ```
 
-2. Add your OpenAI API key to the `.env` file:
+2. Add your API keys to the `.env` file:
    ```
    OPENAI_API_KEY=your_openai_api_key_here
+   SERPER_API_KEY=your_serper_api_key_here
    ```
+   
+   Note: You need a Serper API key for web searches. Get one free at [https://serper.dev](https://serper.dev)
 
 ### Customizing
 
-The workflow is already configured to generate AI newsletters with the specified format. However, you can customize:
+The workflow is already configured to generate detailed trip itineraries. However, you can customize:
 
-- **Topic**: Modify the `topic` parameter in `src/newsletter_crew/main.py` to focus on specific AI areas (e.g., "Machine Learning", "Computer Vision", "Natural Language Processing")
+- **Trip Parameters**: Modify the inputs in `src/newsletter_crew/main.py`:
+  - `destination`: Your travel destination (e.g., "Paris, France", "Tokyo, Japan")
+  - `duration`: Number of days for the trip
+  - `budget`: Budget amount
+  - `currency`: Currency code (USD, EUR, GBP, etc.)
 - **Agents**: Modify `src/newsletter_crew/config/agents.yaml` to adjust agent roles and backstories
 - **Tasks**: Modify `src/newsletter_crew/config/tasks.yaml` to change task descriptions and output formats
 - **Tools**: Add custom tools in `src/newsletter_crew/tools/` and integrate them into agents in `src/newsletter_crew/crew.py`
@@ -49,69 +56,91 @@ To kickstart your crew of AI agents and begin task execution, run this from the 
 $ crewai run
 ```
 
-This command initializes the newsletter-crew Crew, assembling the agents and assigning them tasks as defined in your configuration.
+This command initializes the Trip Planner Crew, assembling the agents and assigning them tasks as defined in your configuration.
 
-This will execute the multi-agent workflow and generate a `newsletter.md` file with the final newsletter in the root folder.
+This will execute the multi-agent workflow and generate an `itinerary.md` file with your detailed travel itinerary in the root folder.
 
 ## Understanding Your Crew
 
-The AI Newsletter Crew is composed of three specialized AI agents working in sequence:
+The Trip Planner Crew is composed of three specialized AI agents working in sequence:
 
 ### Agents
 
-1. **Researcher** - AI News & Research Intelligence Specialist
-   - Discovers the latest AI news stories and research papers
-   - Curates 3 significant news items and 1 featured research paper
-   - Evaluates the significance and relevance of developments
+1. **Researcher** - Travel Research & Intelligence Specialist
+   - Uses web search tools to find real-time travel information
+   - Gathers current prices, opening hours, and booking details
+   - Finds authentic reviews and insider tips
 
-2. **Editor** - AI Newsletter Editor & Content Strategist
-   - Transforms research into engaging newsletter content
-   - Drafts structured sections with appropriate detail levels
-   - Maintains professional tone for a technical audience
+2. **Planner** - Expert Trip Itinerary Planner
+   - Creates detailed, hour-by-hour itineraries
+   - Includes specific times, durations, costs, and tips
+   - Ensures activities are well-paced and logistically feasible
 
-3. **Reviewer** - AI Newsletter Quality Assurance Specialist
-   - Ensures accuracy, clarity, and professional quality
-   - Checks formatting consistency and grammar
+3. **Reviewer** - Travel Itinerary Quality Assurance Specialist
+   - Ensures all details are present (times, costs, durations, tips)
+   - Verifies schedule feasibility and budget compliance
    - Produces publication-ready final output
 
 ### Workflow
 
 The workflow follows a sequential process:
 
-1. **Research Task**: The Researcher finds the 3 most significant AI news items and 1 top research paper
-2. **Drafting Task**: The Editor creates a structured newsletter with three sections
-3. **Review Task**: The Reviewer polishes and finalizes the newsletter
+1. **Research Task**: The Researcher searches the web for current travel information (attractions, restaurants, costs, hours)
+2. **Planning Task**: The Planner creates a detailed day-by-day itinerary with specific times and costs
+3. **Review Task**: The Reviewer ensures quality, format consistency, and completeness
 
 ### Output Format
 
-The final newsletter includes three sections:
+The final itinerary includes detailed daily schedules:
 
-**Section 1: AI News Roundup**
-- 3 concise bullet points highlighting key developments
+**Each Day Includes:**
+- **Specific Times**: "Morning (9:00 AM - 12:00 PM)"
+- **Activity Details**: Clear description of what to do
+- **Duration**: "Duration: 2 hours"
+- **Costs**: "Cost: €25 (adult ticket)"
+- **Tips**: "Tip: Pre-book tickets online to avoid queues"
 
-**Section 2: Deep Dive**
-- 3 detailed paragraphs expanding on each news item
+**Example:**
+```markdown
+## Day 1: Iconic Paris
 
-**Section 3: Research Spotlight**
-- 1 comprehensive paragraph featuring a significant AI research paper
+**Morning (9:00 AM - 12:00 PM):** Visit the Eiffel Tower
+
+Duration: 2 hours
+
+Cost: €25 (adult ticket)
+
+Tip: Pre-book tickets online to avoid long queues.
+```
 
 ### Customization
 
-You can customize the newsletter by modifying the `topic` parameter in `src/newsletter_crew/main.py`:
+You can customize your trip by modifying the inputs in `src/newsletter_crew/main.py`:
 
 ```python
 inputs = {
-    'topic': 'Artificial Intelligence',  # Change this to focus on specific AI topics
-    'current_year': str(datetime.now().year)
+    'destination': 'Paris, France',    # Your travel destination
+    'duration': '7',                   # Number of days
+    'budget': '2000',                  # Budget amount
+    'currency': 'USD'                  # Currency (USD, EUR, GBP, etc.)
 }
 ```
 
+## Features
+
+✅ **Real-Time Web Research**: Uses Serper to search for current prices, hours, and booking info  
+✅ **Detailed Time Blocks**: Every activity has specific start and end times  
+✅ **Actual Costs**: Real prices pulled from web searches, not estimates  
+✅ **Practical Tips**: Insider advice for each activity  
+✅ **Budget-Conscious**: Stays within your specified budget  
+✅ **Actionable Output**: Ready-to-use itineraries with all the details you need  
+
 ## Support
 
-For support, questions, or feedback regarding the NewsletterCrew Crew or crewAI.
+For support, questions, or feedback regarding the Trip Planner Crew or crewAI:
 - Visit our [documentation](https://docs.crewai.com)
 - Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
 - [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
 - [Chat with our docs](https://chatg.pt/DWjSBZn)
 
-Let's create wonders together with the power and simplicity of crewAI.
+Let's create amazing travel experiences together with the power and simplicity of crewAI!
